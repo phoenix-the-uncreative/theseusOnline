@@ -8,7 +8,7 @@ module.exports = {
 		.setDescription('Показывает онлайн Тесея.'),
 	async execute(interaction) {
 
-        const res = await fetch(`https://eu.mc-api.net/v3/server/ping/theseus.su`);
+        const res = await fetch(`https://mcapi.us/server/query?ip=theseus.su`);
 
         if (!res) {
             return false;
@@ -23,19 +23,19 @@ module.exports = {
             if (status == "Online") {
                 message.addField("Статус сервера", "Онлайн");
                 message.setColor("GREEN");
-                const players = body.players.online
+                const players = body.players.now
                 const playersMax = body.players.max
 
                 let playerList = "";
                 if (players > 0) {
                     let i = 1;
-                    body.players.sample.forEach(item => { 
-                        playerList = playerList + i + ". " + item.name + ",\n"; 
-                        if (i == body.players.sample.length) playerList = playerList.slice(0, playerList.length - 2) + ".";
+                    body.players.list.forEach(item => { 
+                        playerList = playerList + i + ". " + item + ",\n"; 
+                        if (i == body.players.list.length) playerList = playerList.slice(0, playerList.length - 2) + ".";
                         i++;
                  })
                 message.addField(`Текущий онлайн (${players}/${playersMax}):`, `${playerList}`);
-                } else message.addField(`Текущий онлайн (0/${playersMax}):`, 'Ноль. Силур пустует.');
+                } else message.addField(`Текущий онлайн (0/${playersMax}):`, 'Ноль. Полотно пустует.');
 
                 interaction.reply({ embeds: [message], ephemeral: true});
 
