@@ -1,5 +1,6 @@
 { 
 	"token": "token",
 	"clientID": "clientid",
-	"guildID": "guildid"
+	"guildID": "guildid",
+	"channelID": "channelid"
 }

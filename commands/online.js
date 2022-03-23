@@ -1,5 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
+const { guildID, channelID } = require('../config.json');
+const fs = require('fs');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -46,6 +48,29 @@ module.exports = {
 					activities: [{ name: ("Тесей (" + players + "/" + playersMax + ")") }],
 					status: 'online'
 				});
+                
+                fs.readFile('persistent.json', 'utf-8', async (err, data) => {
+                    if (err) console.error(err);
+                    else {
+                        let persistent = JSON.parse(data);
+                        if (players > persistent.currentRecord) {
+                            let announcementChannel = interaction.client.guilds.cache.get(guildID).channels.cache.get(channelID);
+    
+                            let embedAnnouncement = new MessageEmbed()
+                                .setTitle("Theseus")
+                                .setColor("AQUA")
+                                .setThumbnail("https://theseus.su/logo.png")
+                                .addField("Достигнут новый рекорд онлайна!", `Предыдущий рекорд: ${persistent.currentRecord}\nНовый рекорд: ${players}`)
+                                .addField("Онлайн в момент рекорда:", `${playerList}`);
+                            
+                            await announcementChannel.send({ embeds: [embedAnnouncement] });
+    
+                            persistent.currentRecord = players;
+    
+                            fs.writeFile('persistent.json', JSON.stringify(persistent), 'utf-8', (err) => { if (err) throw err; });
+                        }
+                    }
+                });
             } else {
                 message.addField("Статус сервера", "Оффлайн");
                 interaction.reply({ embeds: [message], ephemeral: true });
