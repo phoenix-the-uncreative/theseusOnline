@@ -18,7 +18,8 @@ module.exports = {
             let message = new MessageEmbed()
                 .setTitle("Theseus")
                 .setColor("RED")
-                .setThumbnail("https://theseus.su/logo.png");
+                .setThumbnail("https://theseus.su/logo.png")
+                .setFooter('Имейте в виду, что данные взяты с помощью стороннего API и могут быть устаревшими на несколько минут.');
 
             if (status == "Online") {
                 message.addField("Статус сервера", "Онлайн");
