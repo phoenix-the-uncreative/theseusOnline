@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const { guildID, channelID } = require('../config.json');
+const persistent = require('../persistent.json');
 const fs = require('fs');
 const fetch = require('node-fetch');
 
@@ -21,7 +22,7 @@ module.exports = {
                 .setTitle("Theseus")
                 .setColor("RED")
                 .setThumbnail("https://theseus.su/logo.png")
-                .setFooter('Имейте в виду, что данные взяты с помощью стороннего API и могут быть устаревшими на несколько минут.');
+                .setFooter(`Имейте в виду, что данные взяты с помощью стороннего API и могут быть устаревшими на несколько минут.\nТекущий рекорд онлайна: ${persistent.currentRecord}`);
 
             if (status == "Online") {
                 message.addField("Статус сервера", "Онлайн");
