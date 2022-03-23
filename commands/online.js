@@ -26,12 +26,14 @@ module.exports = {
                 const players = body.players.now
                 const playersMax = body.players.max
 
+                let sortedList = body.players.list.sort((a, b) => a.localeCompare(b));
+
                 let playerList = "";
                 if (players > 0) {
                     let i = 1;
-                    body.players.list.forEach(item => { 
+                    sortedList.forEach(item => { 
                         playerList = playerList + i + ". " + item + ",\n"; 
-                        if (i == body.players.list.length) playerList = playerList.slice(0, playerList.length - 2) + ".";
+                        if (i == sortedList.length) playerList = playerList.slice(0, playerList.length - 2) + ".";
                         i++;
                  })
                 message.addField(`Текущий онлайн (${players}/${playersMax}):`, `${playerList}`);
