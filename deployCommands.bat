@@ -1,3 +1,0 @@
-node cmdeployment.js
-
-pause
