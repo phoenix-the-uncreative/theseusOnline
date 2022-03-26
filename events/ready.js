@@ -15,16 +15,14 @@ module.exports = {
 			const status = (body.online ? "Online" : "Offline")
 		
 			if (status == "Online") {
-				client.user.setPresence({ 
-					activities: [{ name: ("Тесей (" + body.players.online + "/" + body.players.max + ")") }],
-					status: 'online'
-				});
+				client.user.setPresence({ activities: [{ name: ("Тесей (" + body.players.online + "/" + body.players.max + ")") }] });
+				client.user.setStatus('online');
 
 				updateInterval = (body.players.online > 0 ? 60000 : 300000);
-			} else client.user.setPresence({ 
-				activities: [{ name: ("Тесей (оффлайн)"), type: "WATCHING" }],
-				status: 'dnd'
-			});
+			} else { 
+				client.user.setPresence({  activities: [{ name: ("Тесей (оффлайн)"), type: "WATCHING" }] });
+				client.user.setStatus('dnd');
+			}
 		};
 
 		updateStatus();

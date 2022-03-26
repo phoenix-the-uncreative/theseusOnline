@@ -94,8 +94,8 @@ module.exports = {
 					activities: [{
 						name: ("Тесей (" + players + "/" + playersMax + ")")
 					}],
-					status: 'online'
 				});
+				interaction.client.user.setStatus('online');
 
 			} else {
 				message.addField("Статус сервера", "Оффлайн");
@@ -107,9 +107,9 @@ module.exports = {
 					activities: [{
 						name: ("Тесей (оффлайн)"),
 						type: "WATCHING"
-					}],
-					status: 'dnd'
+					}]
 				});
+				interaction.client.user.setStatus('dnd');
 			};
 		};
 	},
