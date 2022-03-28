@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const { guildID, channelID } = require('../config.json');
+const record = require('../functions/record.js')
 const fs = require('fs');
 const fetch = require('node-fetch');
 
@@ -54,39 +55,13 @@ module.exports = {
 						let persistent = JSON.parse(data);
 						message.addField("Текущий рекорд онлайна: ", `${persistent.currentRecord.toString()} человек.`, true);
 
-						if (players > persistent.currentRecord) { // Announce the new record
-							let announcementChannel = interaction.client.guilds.cache.get(guildID)
-								.channels.cache.get(channelID);
+						if (players > persistent.currentRecord) record.announce(players, playerList, interaction.client.guilds.cache.get(guildID).channels.cache.get(channelID));
 
-							let embedAnnouncement = new MessageEmbed()
-								.setTitle("Theseus")
-								.setColor("AQUA")
-								.setThumbnail("https://theseus.su/logo.png")
-								.addField("Достигнут новый рекорд онлайна!", `Предыдущий рекорд: ${persistent.currentRecord}\nНовый рекорд: ${players}`)
-								.addField("Онлайн в момент рекорда:", `${playerList}`)
-								.setTimestamp();
-
-							if (persistent.recordMessage != 0)
-								await announcementChannel.messages.delete(persistent.recordMessage)
-								.catch(console.error);
-
-							await announcementChannel.send({
-									embeds: [embedAnnouncement]
-								})
-								.then(message => persistent.recordMessage = message.id);
-
-							persistent.currentRecord = players;
-
-							fs.writeFile('persistent.json', JSON.stringify(persistent), 'utf-8', (err) => {
-								if (err)
-									throw err;
-							});
-						}
 						await interaction.reply({
-								embeds: [message],
-								ephemeral: true
-							})
-							.catch(console.error); // Ephemeral reply to the interaction with the formatted message after everything's complete
+							embeds: [message],
+							ephemeral: true
+						})
+						.catch(console.error); // Ephemeral reply to the interaction with the formatted message after everything's complete
 					}
 				});
 
