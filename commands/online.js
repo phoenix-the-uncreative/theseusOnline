@@ -46,7 +46,7 @@ module.exports = {
 						i++;
 					})
 					message.addField(`Текущий онлайн (${players}/${playersMax}):`, `${playerList}`);
-				} else message.addField(`Текущий онлайн (0/${playersMax}):`, 'Ноль. Полотно пустует.');
+				} else message.addField(`Текущий онлайн (0/${playersMax}):`, 'Ноль. Силур пустует.');
 
 				fs.readFile('persistent.json', 'utf-8', async (err, data) => {
 					if (err)
