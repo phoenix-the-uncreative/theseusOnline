@@ -2,15 +2,15 @@ module.exports = {
     name: 'messageCreate',
     once: false,
     execute(message) {
-        let variants = [
-            "", "!", "!!", ".", "а", "-а", "?", "??", "аа", 
-            ")", "))", ")))", "(((", "((", "("
-        ];
+        if (message.author.bot) return;
 
-        if ( variants.some(item => { 
-            if (message.content.toLowerCase().endsWith("да" + item)) return true 
-        })) {
-            if (Math.random() > 0.98) message.reply('Пизда!'); // ~2% chance
-        }
+        let punctRE = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
+        let expRE = /(^|\s)(да)(\s|$)$/g; // scary regexes
+
+        let filteredMessage = message.content.replace(punctRE, '').toLowerCase(); // Exclude any punctuation in further testing
+
+        if ((expRE.test(filteredMessage)) && (Math.random() >= 0.99)) {
+            message.reply('Пизда!'); // 1% chance
+        };
     }
 };
