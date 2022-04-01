@@ -10,7 +10,7 @@ module.exports = {
         let filteredMessage = message.content.replace(punctRE, '').toLowerCase(); // Exclude any punctuation in further testing
 
         if ((expRE.test(filteredMessage)) && (Math.random() >= 0.99)) {
-            message.reply('Пизда!'); // 1% chance
+            await message.reply('Пизда!'); // 1% chance
         };
     }
 };
