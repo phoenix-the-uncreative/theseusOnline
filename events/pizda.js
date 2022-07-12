@@ -1,7 +1,7 @@
 module.exports = {
     name: 'messageCreate',
     once: false,
-    execute(message) {
+    async execute(message) {
         if (message.author.bot) return;
 
         let punctRE = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/g;
