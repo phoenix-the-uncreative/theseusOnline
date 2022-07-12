@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const { guildID, channelID } = require('../config.json');
+const { guildID, channelID, serverIP, serverPort } = require('../config.json');
 const record = require('../functions/record.js')
 const fs = require('fs');
 const fetch = require('node-fetch');
@@ -11,7 +11,7 @@ module.exports = {
 		.setDescription('Показывает онлайн Тесея.'),
 	async execute(interaction) {
 
-		const res = await fetch(`https://mcapi.us/server/query?ip=theseus.su`) // Fetches current server status via mcapi
+		const res = await fetch(`https://mcapi.us/server/query?ip=${serverIP}&port=${serverPort}`) // Fetches current server status via mcapi
 			.catch(err => {
 				console.log("Failed to retrieve API response.");
 				console.error(err);

@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const record = require('../functions/record');
-const { guildID, channelID } = require('../config.json');
+const { guildID, channelID, serverIP, serverPort } = require('../config.json');
 const fs = require('fs');
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
 		
 		let updateInterval = 60000;
 		const updateStatus = async () => {
-			const theseusData = await fetch(`https://mcapi.us/server/query?ip=theseus.su`)
+			const theseusData = await fetch(`https://mcapi.us/server/query?ip=${serverIP}&port=${serverPort}`)
 			if (!theseusData) return
 		
 			const body = await theseusData.json();

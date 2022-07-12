@@ -2,5 +2,7 @@
 	"token": "token",
 	"clientID": "clientid",
 	"guildID": "guildid",
-	"channelID": "channelid"
+	"channelID": "channelid",
+	"serverIP": "127.0.0.1",
+	"serverPort": "27015"
 }
