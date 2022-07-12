@@ -1,3 +1,5 @@
+const { pizdaThreshold } = require('../config.json');
+
 module.exports = {
     name: 'messageCreate',
     once: false,
@@ -9,7 +11,7 @@ module.exports = {
 
         let filteredMessage = message.content.replace(punctRE, '').toLowerCase(); // Exclude any punctuation in further testing
 
-        if ((expRE.test(filteredMessage)) && (Math.random() >= 0.99)) {
+        if ((expRE.test(filteredMessage)) && (Math.random() >= pizdaThreshold)) {
             await message.reply('Пизда!'); // 1% chance
         };
     }

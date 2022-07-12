@@ -4,5 +4,6 @@
 	"guildID": "guildid",
 	"channelID": "channelid",
 	"serverIP": "127.0.0.1",
-	"serverPort": "27015"
+	"serverPort": "27015",
+	"pizdaThreshold": "0"
 }
